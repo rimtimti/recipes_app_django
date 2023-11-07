@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+<title>{% block title %} {{title}} {% endblock %}</title>
+{% block content %}
+<div class="flex_center">
+    <h2 class="text">
+        <strong>{{ cookbook_items.recipe.name }}</strong>
+    </h2>
+</div>
+<div class="register">
+    <div class="card background-color">
+        <img class="img" src="{{ cookbook_items.recipe.image.url }}" alt="Рецепт">
+        <div class="card">
+            <p class="text">
+                <small>{{ cookbook_items.recipe.create_at }}</small>
+            </p>
+            <h3 class="text">Категория:</h3>
+            <p class="text">{{ cookbook_items.category.name }}</p>
+            <h3 class="text">Автор:</h3>
+            <p class="text">{{ cookbook_items.user.username }}</p>
+            <h3 class="text">Описание:</h3>
+            <p class="text">{{ cookbook_items.recipe.description }}</p>
+            <h3 class="text">Этапы приготовления:</h3>
+            <p class="text">{{ cookbook_items.recipe.steps }}</p>
+            <h3 class="text">Время приготовления:</h3>
+            <p class="text">{{ cookbook_items.recipe.cooking_time }} мин.</p>
+        </div>
+    </div>
+</div>
+<div class="register">
+    <a href="{% url 'recipe_edit' cookbook_items.pk %}" class="link">Редактировать рецепт</a>
+    <a href="{% url 'category_edit' cookbook_items.pk %}" class="link">Редактировать категорию</a>
+    <a href="{% url 'recipe_delete' cookbook_items.pk %}" class="link">Удалить рецепт</a>
+</div>
+{% endblock %}

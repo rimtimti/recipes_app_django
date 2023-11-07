@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+<title>{% block title %} {{title}} {% endblock %}</title>
+{% block content %}
+<div class="flex_center">
+    <h5 class="text">
+        <strong>{{ title }}</strong>
+    </h5>
+</div>
+<div class="grid">
+    {% for item in cookbook_items %}
+    <div class="card background-color">
+        <img class="img" src="{{ item.recipe.image.url }}" alt="Рецепт">
+        <div class="card">
+            <h1 class="text">
+                <a class="link" href="{% url 'recipe_detail' item.pk %}">
+                    {{ item.recipe.name }}
+                </a>
+            </h1>
+            <p class="text">Категория: {{ item.category.name }}</p>
+            <p class="text">Автор: {{ item.user.username }}</p>
+            <p class="text">
+                <small>Загружено: {{ item.recipe.create_at }}</small>
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

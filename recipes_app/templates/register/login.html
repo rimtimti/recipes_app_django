@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="flex_center">
+    <h5 class="text">
+        <strong>{{ title }}</strong>
+    </h5>
+</div>
+<div class="flex_center">
+    <form class="card" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <h3 class="text"> {{field.label_tag}}</h3>
+        <p class="text"> {{field}}</p>
+        {% endfor %}
+        <div class="register">
+            <input type="submit" class="button" value="Вход">
+            <a class="link" href="{% url 'register' %}">Зарегистрироваться</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %} {{title}} {% endblock %}</title>
+        <link rel="stylesheet" href="/static/css/recipes_app.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    </head>
+    <!-- Базовая страница -->
+    <body>
+        <header class="header">
+            <div class="brand">Рецепты на каждый день</div>
+            <ul class="links_header">
+                {% if user.is_authenticated %}
+                <li>
+                    <b class="link">Авторизован: {{ user.get_username }}</b>
+                </li>
+                <li>
+                    <a class="link" href="{% url 'logout' %}">Выход</a>
+                </li>
+                <li>
+                    <a class="link" href="{% url 'user_recipes' %}">Мои рецепты</a>
+                </li>
+                <li>
+                    <a class="link" href="{% url 'add_recipe' %}">Добавить рецепт</a>
+                </li>
+                {% else %}
+                <li>
+                    <a class="link" href="{% url 'login' %}">Вход</a>
+                </li>
+                {% endif %}
+                <li>
+                    <a class="link" href="{% url 'home' %}">Домой</a>
+                </li>
+                <li>
+                    <a class="link" href="{% url 'users' %}">Все авторы</a>
+                </li>
+                <li>
+                    <a class="link" href="{% url 'recipes' %}">Все рецепты</a>
+                </li>
+            </ul>
+        </header>
+        {% if messages %}
+        <div class="text content flex_center">
+            <ul class="text">
+                {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message|safe }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <section class="content">
+            {% block content %} {% endblock %}
+        </section>
+        <footer class="footer">
+            <div class="container">
+                <div class="text">
+                    <p>&copy;&nbsp;2023 Brand All Rights Reserved</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
